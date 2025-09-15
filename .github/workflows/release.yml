@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Inject version into scripts
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+
+          # Add version to battery_logger.sh
+          sed -i "s/^VERSION=\"dev\"/VERSION=\"$VERSION\"/" battery_logger.sh
+
+          echo "Injected version $VERSION into scripts"
+
+      - name: Create release archive
+        run: |
+          tar -czf rm-battery-logger.tar.gz \
+            battery_logger.sh \
+            start_logger.sh \
+            stop_logger.sh
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: rm-battery-logger.tar.gz
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: ${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Installation
+
+            Run the following command on your reMarkable device:
+            ```bash
+            wget -O - https://raw.githubusercontent.com/rmitchellscott/rm-battery-logger/main/install.sh | bash
+            ```
+
+            ## Manual Installation
+
+            Download and extract the archive:
+            ```bash
+            wget https://github.com/rmitchellscott/rm-battery-logger/releases/latest/download/rm-battery-logger.tar.gz
+            mkdir -p rm-battery-logger
+            tar -xzf rm-battery-logger.tar.gz -C rm-battery-logger
+            cd rm-battery-logger
+            chmod +x *.sh
+            ./start_logger.sh
+            ```
+          draft: false
+          prerelease: false
