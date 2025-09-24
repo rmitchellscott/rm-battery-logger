@@ -51,19 +51,19 @@ get_battery_data() {
     capacity=$(read_sysfs "$BATTERY_PATH/capacity")
 
     charge_now=$(read_sysfs "$BATTERY_PATH/charge_now")
-    charge_now_mah=$((charge_now / 100))
-    charge_now_mah="${charge_now_mah%??}.${charge_now_mah: -2}"
+    charge_now_mah=$((charge_now / 1000))
+    charge_now_mah="${charge_now_mah}.${charge_now:(-3):1}"
 
     charge_full=$(read_sysfs "$BATTERY_PATH/charge_full")
-    charge_full_mah=$((charge_full / 100))
-    charge_full_mah="${charge_full_mah%??}.${charge_full_mah: -2}"
+    charge_full_mah=$((charge_full / 1000))
+    charge_full_mah="${charge_full_mah}.${charge_full:(-3):1}"
 
     status=$(read_sysfs "$BATTERY_PATH/status")
     [[ -z "$status" || "$status" == "0" ]] && status="Unknown"
 
     current_avg=$(read_sysfs "$BATTERY_PATH/current_avg")
-    current_avg_ma=$((current_avg / 100))
-    current_avg_ma="${current_avg_ma%??}.${current_avg_ma: -2}"
+    current_avg_ma=$((current_avg / 1000))
+    current_avg_ma="${current_avg_ma}.${current_avg:(-3):1}"
 
     voltage_now=$(read_sysfs "$BATTERY_PATH/voltage_now")
     voltage_v=$((voltage_now / 1000))
