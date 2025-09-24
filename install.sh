@@ -32,10 +32,17 @@ echo "Latest version: $LATEST_VERSION"
 if [[ -d "$INSTALL_DIR" ]]; then
     echo ""
     echo "rm-battery-logger is already installed in $INSTALL_DIR"
-    read -p "Do you want to overwrite the existing installation? (y/n): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Installation cancelled"
+
+    # Check for existing CSV files
+    CSV_COUNT=$(find "$INSTALL_DIR" -name "*.csv" 2>/dev/null | wc -l)
+    if [[ $CSV_COUNT -gt 0 ]]; then
+        echo "Found $CSV_COUNT existing log file(s)"
+    fi
+
+    printf "Do you want to update the installation? CSV files will be preserved (y/n): " >&2
+    read REPLY </dev/tty || REPLY="n"
+    if [[ "$REPLY" != "y" && "$REPLY" != "Y" ]]; then
+        echo "Installation cancelled" >&2
         exit 0
     fi
 
@@ -43,10 +50,13 @@ if [[ -d "$INSTALL_DIR" ]]; then
     if [[ -f "$INSTALL_DIR/stop_logger.sh" ]]; then
         echo "Stopping existing logger..."
         "$INSTALL_DIR/stop_logger.sh" 2>/dev/null || true
+        # Give it a moment to clean up
+        sleep 1
     fi
 
-    echo "Removing existing installation..."
-    rm -rf "$INSTALL_DIR"
+    echo "Removing old installation files (preserving CSV logs)..."
+    # Remove everything except CSV files
+    find "$INSTALL_DIR" -type f ! -name "*.csv" -delete 2>/dev/null || true
 fi
 
 # Create installation directory
