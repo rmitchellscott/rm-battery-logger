@@ -81,6 +81,15 @@ Files are saved as `battery_log_YYYY-MM-DD.csv` in the installation directory.
 
 Auto-detects battery controller at runtime.
 
+## Compensation to Match UI Values
+
+The operating system reports different values from the reMarkable tablet UI.
+
+**Paper Pro Move**
+```
+MIN(100, IF([capacity_percent]>=80, 1.1164*[capacity_percent]-9.363, 1.1904*[capacity_percent]-14.9555))
+```
+
 ## License
 
 MIT
