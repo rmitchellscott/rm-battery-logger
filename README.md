@@ -83,11 +83,18 @@ Auto-detects battery controller at runtime.
 
 ## Compensation to Match UI Values
 
-The operating system reports different values from the reMarkable tablet UI.
+The operating system reports different values from the reMarkable tablet UI. I've used the following formulas when post-processing the data to compensate for this. 
+
+Formulas are derived from me watching the UI and noting values compared to what the script reports at multiple points. They're likely not perfect, and may even differ across OS releases. These were recorded on 3.22.
+
+**Paper Pro**
+```
+=MAX(0, MIN(100, IF([capacity_percent]>=75, 1.0968*[capacity_percent]-6.3763, 1.1981*[capacity_percent]-13.179)))
+```
 
 **Paper Pro Move**
 ```
-MIN(100, IF([capacity_percent]>=80, 1.1164*[capacity_percent]-9.363, 1.1904*[capacity_percent]-14.9555))
+=MAX(0, MIN(100, IF([capacity_percent]>=80, 1.1164*[capacity_percent]-9.363, 1.2040*[capacity_percent]-15.6514)))
 ```
 
 ## License
