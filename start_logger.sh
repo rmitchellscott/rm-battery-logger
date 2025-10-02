@@ -16,6 +16,13 @@ if [ -f "$PID_FILE" ]; then
     fi
 fi
 
+# Check for any running battery_logger.sh processes
+RUNNING_PIDS=$(ps | grep "battery_logger.sh" | grep -v grep | awk '{print $1}')
+if [ -n "$RUNNING_PIDS" ]; then
+    echo "Battery logger is already running (PID(s): $RUNNING_PIDS)"
+    exit 1
+fi
+
 if [ ! -f "$LOGGER_SCRIPT" ]; then
     echo "Error: Logger script not found at $LOGGER_SCRIPT"
     exit 1
