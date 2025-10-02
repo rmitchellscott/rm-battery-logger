@@ -33,19 +33,19 @@ mkdir -p rm-battery-logger
 tar -xzf rm-battery-logger.tar.gz -C rm-battery-logger
 cd rm-battery-logger
 chmod +x *.sh
-./start_logger.sh
+./start.sh
 ```
 
 ## Usage
 
 Start logging:
 ```bash
-rm-battery-logger/start_logger.sh
+rm-battery-logger/start.sh
 ```
 
 Stop logging:
 ```bash
-rm-battery-logger/stop_logger.sh
+rm-battery-logger/stop.sh
 ```
 
 Check version:

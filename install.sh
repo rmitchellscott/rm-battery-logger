@@ -47,9 +47,9 @@ if [[ -d "$INSTALL_DIR" ]]; then
     fi
 
     # Stop the logger if it's running
-    if [[ -f "$INSTALL_DIR/stop_logger.sh" ]]; then
+    if [[ -f "$INSTALL_DIR/stop.sh" ]]; then
         echo "Stopping existing logger..."
-        "$INSTALL_DIR/stop_logger.sh" 2>/dev/null || true
+        "$INSTALL_DIR/stop.sh" 2>/dev/null || true
         # Give it a moment to clean up
         sleep 1
     fi
@@ -90,7 +90,7 @@ echo "Setting permissions..."
 chmod +x *.sh
 
 # Verify installation
-if [[ ! -f "battery_logger.sh" ]] || [[ ! -f "start_logger.sh" ]] || [[ ! -f "stop_logger.sh" ]]; then
+if [[ ! -f "battery_logger.sh" ]] || [[ ! -f "start.sh" ]] || [[ ! -f "stop.sh" ]]; then
     echo "Error: Installation verification failed - missing files"
     rm -rf "$INSTALL_DIR"
     exit 1
@@ -104,11 +104,11 @@ echo ""
 echo "rm-battery-logger has been installed to: $INSTALL_DIR"
 echo ""
 echo "Usage:"
-echo "  Start logging:  $INSTALL_DIR/start_logger.sh"
-echo "  Stop logging:   $INSTALL_DIR/stop_logger.sh"
+echo "  Start logging:  $INSTALL_DIR/start.sh"
+echo "  Stop logging:   $INSTALL_DIR/stop.sh"
 echo "  Check version:  $INSTALL_DIR/battery_logger.sh -v"
 echo ""
 echo "Log files will be saved to: $INSTALL_DIR/battery_log_YYYY-MM-DD.csv"
 echo ""
 echo "To start logging now, run:"
-echo "  $INSTALL_DIR/start_logger.sh"
+echo "  $INSTALL_DIR/start.sh"

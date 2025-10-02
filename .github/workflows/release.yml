@@ -32,8 +32,8 @@ jobs:
         run: |
           tar -czf rm-battery-logger.tar.gz \
             battery_logger.sh \
-            start_logger.sh \
-            stop_logger.sh
+            start.sh \
+            stop.sh
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -58,7 +58,7 @@ jobs:
             tar -xzf rm-battery-logger.tar.gz -C rm-battery-logger
             cd rm-battery-logger
             chmod +x *.sh
-            ./start_logger.sh
+            ./start.sh
             ```
           draft: false
           prerelease: false
