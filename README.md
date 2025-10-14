@@ -1,4 +1,5 @@
 # rm-battery-logger
+[![rm1](https://img.shields.io/badge/rM1-supported-green)](https://remarkable.com/products/remarkable-1)
 [![rm2](https://img.shields.io/badge/rM2-supported-green)](https://remarkable.com/store/remarkable-2)
 [![rmpp](https://img.shields.io/badge/rMPP-supported-green)](https://remarkable.com/products/remarkable-paper/pro)
 [![rmppm](https://img.shields.io/badge/rMPPM-supported-green)](https://remarkable.com/products/remarkable-paper/pro-move)
@@ -10,7 +11,7 @@ Battery and frontlight monitoring for reMarkable tablets. Logs statistics to dai
 - Logs battery capacity, charge, voltage, current, temperature, and frontlight brightness
 - Creates daily CSV files
 - Checks every minute, logs every 5+ minutes
-- Works on reMarkable 2, Paper Pro, and Paper Pro Move
+- Works on reMarkable 1, reMarkable 2, Paper Pro, and Paper Pro Move
 - Pure bash implementation
 
 ## Automatic Installation (Recommended)
@@ -75,6 +76,7 @@ Files are saved as `battery_log_YYYY-MM-DD.csv` in the installation directory.
 
 | Device | Battery Controller | Frontlight |
 |--------|--------------------|------------|
+| reMarkable 1 | bq27441 | No |
 | reMarkable 2 | max77818 | No |
 | reMarkable Paper Pro | max1726x | Yes |
 | reMarkable Paper Pro Move | max77818 | Yes |

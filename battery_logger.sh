@@ -17,6 +17,9 @@ if [[ -d "/sys/class/power_supply/max1726x_battery" ]]; then
 elif [[ -d "/sys/class/power_supply/max77818_battery" ]]; then
     BATTERY_PATH="/sys/class/power_supply/max77818_battery"
     echo "Detected: reMarkable 2 or Paper Pro Move"
+elif [[ -d "/sys/class/power_supply/bq27441-0" ]]; then
+    BATTERY_PATH="/sys/class/power_supply/bq27441-0"
+    echo "Detected: reMarkable 1"
 else
     echo "Error: No supported battery controller found"
     exit 1
