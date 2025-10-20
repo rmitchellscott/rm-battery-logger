@@ -89,6 +89,11 @@ The operating system reports different values from the reMarkable tablet UI. I'v
 
 Formulas are derived from me watching the UI and noting values compared to what the script reports at multiple points. They're likely not perfect, and may even differ across OS releases. These were recorded on 3.22.
 
+**rM1 & rM2**
+```
+=MAX(0, MIN(100, IF([capacity_percent]>=50, 1.1054*[capacity_percent]-10.7743, 1.1458*[capacity_percent]-12.6034)))
+```
+
 **Paper Pro**
 ```
 =MAX(0, MIN(100, IF([capacity_percent]>=75, 1.0968*[capacity_percent]-6.3763, 1.1981*[capacity_percent]-13.179)))
