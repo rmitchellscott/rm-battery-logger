@@ -106,4 +106,4 @@ Formulas are derived from me watching the UI and noting values compared to what 
 
 ## License
 
-MIT
+GPL-3.0-only
